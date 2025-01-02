@@ -1,0 +1,11 @@
+{
+  "id": "com.ltsochev.streamapp",
+  "version": "1.0.0",
+  "vendor": "Lachezar Tsochev",
+  "type": "web",
+  "main": "index.html",
+  "title": "StreamPal",
+  "icon": "icon.png",
+  "iconColor": "#111827",
+  "largeIcon": "largeIcon.png"
+}
