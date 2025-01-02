@@ -10,6 +10,9 @@ const ConfigProvider: FC<{ children?: ReactNode }> = ({ children }) => {
   const { data: config } = useSWR("/configuration", movieFetcher, {
     suspense: true,
     fallbackData: FallbackConfig,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    shouldRetryOnError: false,
   });
 
   return (
