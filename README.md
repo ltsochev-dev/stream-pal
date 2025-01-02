@@ -58,5 +58,5 @@ I also want to acknowledge that building a streaming app is no small feat. Strea
 ### Screenshots
 
 <img src="art/streampal-1.png" alt="Screenshot #1" width="33%" />
-<img src="art/streampal-2.png" alt="Screenshot #1" width="33%" />
-<img src="art/streampal-3.png" alt="Screenshot #1" width="33%" />
+<img src="art/streampal-2.png" alt="Screenshot #2" width="33%" />
+<img src="art/streampal-3.png" alt="Screenshot #3" width="33%" />
