@@ -20,8 +20,6 @@ export default function EnableSpatialNavigation({
   const location = useLocation();
   const focusableElements = useRef<HTMLElement[]>([]);
 
-  console.log("how often this shit plays", Math.random());
-
   useEffect(() => {
     updateFocusableElements();
 
@@ -42,8 +40,6 @@ export default function EnableSpatialNavigation({
       Array.from(defaultSelectors).join(", ")
     );
 
-    console.log("setting elements: ", elements);
-
     focusableElements.current = Array.from(elements);
   };
 
@@ -59,12 +55,6 @@ export default function EnableSpatialNavigation({
 
       const currentElement = document.activeElement as HTMLElement;
       const currentIndex = focusableElements.current.indexOf(currentElement);
-
-      console.log({
-        currentElement,
-        currentIndex,
-        focusableElements: focusableElements.current,
-      });
 
       // If no element is focused, focus the first element
       if (currentIndex === -1 && focusableElements.current.length > 0) {
