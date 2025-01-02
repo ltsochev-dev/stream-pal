@@ -60,3 +60,7 @@ I also want to acknowledge that building a streaming app is no small feat. Strea
 <img src="art/streampal-1.png" alt="Screenshot #1" width="33%" />
 <img src="art/streampal-2.png" alt="Screenshot #2" width="33%" />
 <img src="art/streampal-3.png" alt="Screenshot #3" width="33%" />
+
+#### Troubleshooting
+
+Sadly, WebOS doesn't yet work with ESModules for web apps so we can't fully utilize Vite's power. With that in mind, without doing any hacking solutions, when packaging the app you have to open the `dist` folder and update the `index.html` file and remove the `type="module"` from the script tag of the app otherwise it won't work.

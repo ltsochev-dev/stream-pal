@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import App from "@/app/App";
 import { StrictMode } from "react";
 
-(() => {
+document.addEventListener("DOMContentLoaded", () => {
   document.body.innerHTML = '<div id="app"></div>';
 
   const container = document.getElementById("app");
@@ -27,4 +27,4 @@ import { StrictMode } from "react";
       </StrictMode>
     );
   }
-})();
+});

@@ -21,7 +21,7 @@ const EnglishLayout = [
 type FocusedKey = { row: number; col: number } | null;
 
 const KeyStyles =
-  "min-w-12 py-2 px-4 flex items-center border-2 border-transparent justify-center bg-gray-700 rounded-md text-lg font-semibold transition-transform hover:scale-105 hover:bg-gray-400 hover:border-white";
+  "select-none min-w-12 py-2 px-4 flex items-center border-2 border-transparent justify-center bg-gray-700 rounded-md text-lg font-semibold transition-transform hover:scale-105 hover:bg-gray-400 hover:border-white";
 const ActiveStyles = "scale-105 bg-gray-400 border-white";
 
 const VirtualKeyboard: FC<VirtualKeyboardProps> = ({

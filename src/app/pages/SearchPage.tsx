@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import VirtualKeyboard from "../components/VirtualKeyboard/VirtualKeyboard";
+import Title from "../components/Title";
 
 const SearchPage: React.FC = () => {
   const [query, setQuery] = useState("");
@@ -46,7 +47,7 @@ const SearchPage: React.FC = () => {
         />
         <div className="search-form">
           <h1 className="text-3xl font-bold mb-4">
-            Search TV Shows &amp; Movies
+            <Title>Search TV Shows & Movies</Title>
           </h1>
           <form onSubmit={(e) => e.preventDefault()} className="mb-4">
             <input

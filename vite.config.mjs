@@ -11,6 +11,15 @@ export default defineConfig({
     target: "es2016",
     outDir: "../dist",
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        format: 'iife',
+      },
+    },
+  },
+  esbuild: {
+    jsxFactory: 'h',
+    jsxFragment: 'Fragment',
   },
   server: {
     host: "0.0.0.0",
