@@ -34,7 +34,7 @@ npm run dev
 
 ### Running the app on the TV
 
-To run the application on the TV, you'll need the webOS Studio extension for VSCode. After installation, follow LG's [documentation on transferring the packaged app to your TV](<(https://webostv.developer.lge.com/develop/getting-started/developer-mode-app#installing-developer-mode-app)>).
+To run the application on the TV, you'll need the webOS Studio extension for VSCode. After installation, follow LG's [documentation on transferring the packaged app to your TV](https://webostv.developer.lge.com/develop/getting-started/developer-mode-app#installing-developer-mode-app).
 
 ### Final thoughts
 
