@@ -1,12 +1,10 @@
-import { Suspense, type FC } from "react";
+import { type FC } from "react";
 import useSWR from "swr";
 import { NavLink } from "react-router";
-import { ErrorBoundary } from "react-error-boundary";
 import PopularMovies from "@/app/components/Sections/PopularMovies";
-import SimplePreloader from "@/app/components/SimplePreloader";
 import { IMovieListResponse } from "@/app/components/Sections/PopularMovies/types";
-import { movieFetcher } from "@/app/fetchers/movies";
 import Title from "@/app/components/Title";
+import { movieFetcher } from "@/app/fetchers/movies";
 
 const HomePage: FC = () => {
   const { data } = useSWR<IMovieListResponse>(
@@ -14,6 +12,12 @@ const HomePage: FC = () => {
     movieFetcher,
     {
       suspense: true,
+      fallbackData: {
+        page: 1,
+        results: [],
+        total_pages: 1,
+        total_results: 0,
+      },
     }
   );
 
@@ -23,15 +27,7 @@ const HomePage: FC = () => {
   return (
     <div className="homepage-page min-h-screen flex flex-col gap-12">
       <section className="popular-section">
-        <ErrorBoundary
-          fallback={
-            <p className="text-center py-4">Failed to fetch popular movies</p>
-          }
-        >
-          <Suspense fallback={<SimplePreloader />}>
-            <PopularMovies movies={popularMovies} />
-          </Suspense>
-        </ErrorBoundary>
+        <PopularMovies movies={popularMovies} />
       </section>
       {[
         "What to Watch",

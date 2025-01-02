@@ -25,7 +25,7 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: './**/*.!(js|ts|tsx|css|module.css|d.ts|html|svg)',
+          src: './**/*.!(js|ts|tsx|css|module.css|d.ts|html|svg|ttf|env)',
           dest: ''
         }
       ]

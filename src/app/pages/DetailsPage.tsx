@@ -11,7 +11,7 @@ const DetailsPage: FC = () => {
     releaseDate: "2010-07-16",
     rating: "8.8",
     posterUrl:
-      "https://image.tmdb.org/t/p/w500/qmDpIHrmpJINaRKAfWQfftjCdyi.jpg",
+      "https://image.tmdb.org/t/p/w500/1sQA7lfcF9yUyoLYC0e6Zo3jmxE.jpg",
   };
 
   return (
@@ -20,7 +20,7 @@ const DetailsPage: FC = () => {
         <div className="md:flex">
           <div className="md:flex-shrink-0">
             <img
-              className="h-64 w-full object-cover md:w-64"
+              className="h-64 w-full object-cover object-center md:w-64"
               src={movie.posterUrl}
               alt={movie.title}
             />

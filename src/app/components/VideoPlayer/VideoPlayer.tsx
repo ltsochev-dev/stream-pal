@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import VideoUI from "./VideoUI";
+import { clamp } from "./utils";
 
 export interface VideoPlayerProps {
   title: string;
@@ -111,27 +112,55 @@ export default function VideoPlayer({
   }, []);
 
   const handleButtonPress = useCallback((e: KeyboardEvent) => {
+    if (!videoRef.current) return;
+
     if (e.key === " " || e.code === "Space") {
       togglePlay();
     }
 
-    console.log({ e });
+    if (e.key === "Enter") {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+      } else {
+        videoRef.current.pause();
+      }
+    }
 
-    // Enter ArrowUp ArrowLeft ArrowDown ArrowRight
-    /** Unidentified keyCode 413 ---- STOP */
-    // 412 ---- REWIND
-    // 417 ---- FAST FORWARD
-    // code Pause keycode 19 ---- PAUSE
-    // play/pause 415 ---- PLAY
-    // 19 ---- PAUSE
-    // 415 ---- PLAY
-    // 413 ---- STOP
-    // 412 ---- REWIND
-    // 417 ---- FAST FORWARD
-    // 403 ---- RED
-    // 404 ---- GREEN
-    // 405 ---- YELLOW
-    // 406 ---- BLUE
+    switch (e.keyCode) {
+      case 412: // REWIND
+        videoRef.current.currentTime = clamp(
+          videoRef.current.currentTime - 10,
+          0,
+          videoRef.current.duration
+        );
+        break;
+      case 417: // FAST-FORWARD
+        videoRef.current.currentTime = clamp(
+          videoRef.current.currentTime + 10,
+          0,
+          videoRef.current.duration
+        );
+        break;
+      case 19: // PAUSE
+      case 413: // STOP
+        videoRef.current.pause();
+        break;
+      case 415: // PLAY
+        videoRef.current.play();
+        break;
+      case 403: // RED BUTTON
+        console.log("Red button not implemented");
+        break;
+      case 404: // GREEN BUTTON
+        console.log("Green button not implemented");
+        break;
+      case 405: // YELLOW BUTTON
+        console.log("Yellow button not implemented");
+        break;
+      case 406: // BLUE BUTTON
+        console.log("Blue button not implemented");
+        break;
+    }
 
     handleUserInteraction();
   }, []);
