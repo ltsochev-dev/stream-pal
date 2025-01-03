@@ -5,9 +5,10 @@
   "description": "StreamPal LG WebOS Experiment App",
   "main": "StreamPal/index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "dev": "webpack serve --mode development",
+    "build": "webpack --mode production",
+    "prod": "npm run build",
+    "tscheck": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Lachezar Tsochev",
@@ -21,16 +22,28 @@
     "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.26.0",
+    "@svgr/webpack": "^8.1.0",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
-    "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
+    "babel-loader": "^9.2.1",
+    "copy-webpack-plugin": "^12.0.2",
+    "css-loader": "^7.1.2",
+    "dotenv-webpack": "^8.1.0",
+    "html-webpack-plugin": "^5.6.3",
+    "mini-css-extract-plugin": "^2.9.2",
     "postcss": "^8.4.49",
+    "postcss-loader": "^8.1.1",
+    "style-loader": "^4.0.0",
     "tailwindcss": "^3.4.17",
+    "ts-loader": "^9.5.1",
     "typescript": "^5.7.2",
-    "vite": "^6.0.6",
-    "vite-plugin-static-copy": "^2.2.0",
-    "vite-plugin-svgr": "^4.3.0",
-    "vite-tsconfig-paths": "^5.1.4"
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
   }
 }

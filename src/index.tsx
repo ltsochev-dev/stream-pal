@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (container) {
     const root = createRoot(container);
 
-    if (import.meta.env.DEV) {
+    if (process.env.NODE_ENV === "development") {
       root.render(
         <StrictMode>
           <App />

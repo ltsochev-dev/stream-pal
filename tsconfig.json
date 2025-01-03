@@ -25,11 +25,10 @@
     }
   },
   "include": [
+    "globals.d.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/webos.d.ts",
-    "vite-env.d.ts",
-    "vite.config.mjs"
   ],
   "exclude": [
     "node_modules"
