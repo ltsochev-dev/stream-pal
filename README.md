@@ -15,7 +15,7 @@ StreamPal is a small application created as part of an experiment with LG WebOS 
 
 To set up the application, you'll need a developer account at [TheMovieDatabase](https://developer.themoviedb.org/docs/getting-started), as the app integrates with their API (mostly for posters, lol).
 
-1. Copy the `.env.example` file to the `./src/.env` file:
+1. Copy the `.env.example` file:
 
 ```bash
 cp .env.example .env
