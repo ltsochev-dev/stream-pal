@@ -9,7 +9,7 @@
 
 ## Introduction
 
-StreamPal is a small application created as part of an experiment with LG WebOS TV. The goal of this experiment was to explore the use of ReactJS in a non-browser environment. I set up Vite to compile TypeScript and bundle the app to an older ES2016 standard, although WebOS seems to support newer JavaScript features. I was surprised to find that WebOS handles flexboxes, grids, CSS transformations, localStorage, and more without issues. In essence, it is a modern OS that recognizes modern web standards.
+StreamPal is a small application created as part of an experiment with LG WebOS TV. The goal of this experiment was to explore the use of ReactJS in a non-browser environment. I set up Webpack to compile TypeScript and bundle the app to an older ES2016 standard, although WebOS seems to support newer JavaScript features. I was surprised to find that WebOS handles flexboxes, grids, CSS transformations, localStorage, and more without issues. In essence, it is a modern OS that recognizes modern web standards.
 
 ## How to Install
 
@@ -18,7 +18,7 @@ To set up the application, you'll need a developer account at [TheMovieDatabase]
 1. Copy the `.env.example` file to the `./src/.env` file:
 
 ```bash
-cp .env.example ./src/.env
+cp .env.example .env
 ```
 
 2. Modify the newly created .env file with the API keys you received from TheMovieDatabase.
@@ -39,7 +39,7 @@ npm run dev
 - TailwindCSS (with `tw-merge`)
 - Feather Icons (Tiny performant SVG Icons)
 - `useSWR` for data fetching and caching
-- Vite for bundling and fast builds
+- Webpack
 
 ### Running the app on the TV
 
@@ -60,7 +60,3 @@ I also want to acknowledge that building a streaming app is no small feat. Strea
 <img src="art/streampal-1.png" alt="Screenshot #1" width="33%" />
 <img src="art/streampal-2.png" alt="Screenshot #2" width="33%" />
 <img src="art/streampal-3.png" alt="Screenshot #3" width="33%" />
-
-#### Troubleshooting
-
-Sadly, WebOS doesn't yet work with ESModules for web apps so we can't fully utilize Vite's power. With that in mind, without doing any hacking solutions, when packaging the app you have to open the `dist` folder and update the `index.html` file and remove the `type="module"` from the script tag of the app otherwise it won't work.

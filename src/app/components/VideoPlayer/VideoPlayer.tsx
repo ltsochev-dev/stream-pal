@@ -33,7 +33,7 @@ export default function VideoPlayer({
       } catch (err) {
         console.error("Error playing video:", err);
 
-        if (err instanceof DOMException) {
+        if (err instanceof DOMException && videoRef.current) {
           videoRef.current.muted = true;
           autoPlay();
         }

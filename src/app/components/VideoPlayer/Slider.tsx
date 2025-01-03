@@ -10,6 +10,8 @@ interface SliderProps {
   onChange: (value: number) => void;
 }
 
+console.log(styles); // Log the styles object
+
 const Slider = forwardRef<HTMLInputElement, SliderProps>(
   ({ min, max, value, step, className, onChange }, ref) => (
     <div className={styles.container}>
