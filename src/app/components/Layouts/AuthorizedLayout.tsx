@@ -1,21 +1,24 @@
-import { type FC } from "react";
-import { NavLink, Outlet, useNavigate } from "react-router";
+import { SyntheticEvent, type FC } from "react";
+import { Outlet, useNavigate } from "react-router";
 import { useAuth } from "@/app/context/AuthContext";
 import AvatarCircle from "@/app/components/AvatarCircle";
-import IconText from "@/app/components/IconText";
 import HomeIcon from "@/app/icons/home.svg?react";
 import SearchIcon from "@/app/icons/search.svg?react";
 import PlusIcon from "@/app/icons/plus.svg?react";
 import UserIcon from "@/app/icons/user.svg?react";
 import SettingsIcon from "@/app/icons/settings.svg?react";
 import LogoutIcon from "@/app/icons/log-out.svg?react";
+import IconLink from "../IconLink";
 
 const AuthorizedLayout: FC = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogout = (e: SyntheticEvent): void => {
+    e.preventDefault();
+
     logout();
+
     navigate("/login");
   };
 
@@ -27,50 +30,47 @@ const AuthorizedLayout: FC = () => {
           <nav>
             <ul className="flex space-x-4">
               <li>
-                <NavLink to="/home" className="hover:underline">
-                  <IconText icon={<HomeIcon width={15} height={15} />} active>
-                    Home
-                  </IconText>
-                </NavLink>
+                <IconLink to="/home" icon={<HomeIcon width={15} height={15} />}>
+                  Home
+                </IconLink>
               </li>
               <li>
-                <NavLink to="/search" className="hover:underline">
-                  <IconText icon={<SearchIcon width={15} height={15} />} active>
-                    Search
-                  </IconText>
-                </NavLink>
+                <IconLink
+                  to="/search"
+                  icon={<SearchIcon width={15} height={15} />}
+                >
+                  Search
+                </IconLink>
               </li>
               <li>
-                <NavLink to="/watchlist" className="hover:underline">
-                  <IconText icon={<PlusIcon width={15} height={15} />}>
-                    Watchlist
-                  </IconText>
-                </NavLink>
+                <IconLink
+                  to="/watchlist"
+                  icon={<PlusIcon width={15} height={15} />}
+                >
+                  Watchlist
+                </IconLink>
               </li>
               <li>
-                <NavLink to="/home" className="hover:underline">
-                  <IconText icon={<UserIcon width={15} height={15} />}>
-                    Profile
-                  </IconText>
-                </NavLink>
+                <IconLink to="/home" icon={<UserIcon width={15} height={15} />}>
+                  Profile
+                </IconLink>
               </li>
               <li>
-                <NavLink to="/home" className="hover:underline">
-                  <IconText icon={<SettingsIcon width={15} height={15} />}>
-                    Settings
-                  </IconText>
-                </NavLink>
+                <IconLink
+                  to="/home"
+                  icon={<SettingsIcon width={15} height={15} />}
+                >
+                  Settings
+                </IconLink>
               </li>
               <li>
-                <button
-                  type="button"
-                  className="hover:underline"
+                <IconLink
+                  to="#"
+                  icon={<LogoutIcon width={15} height={15} />}
                   onClick={handleLogout}
                 >
-                  <IconText icon={<LogoutIcon width={15} height={15} />}>
-                    Logout
-                  </IconText>
-                </button>
+                  Logout
+                </IconLink>
               </li>
             </ul>
           </nav>

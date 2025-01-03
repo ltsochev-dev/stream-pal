@@ -8,7 +8,7 @@ interface IconTextProps {
 
 const IconText: FC<IconTextProps> = ({ active, icon, children }) => {
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center gap-2">
       {icon && <span>{icon}</span>}
       <span className={`text-base ${active ? "font-medium" : "font-normal"}`}>
         {children}
