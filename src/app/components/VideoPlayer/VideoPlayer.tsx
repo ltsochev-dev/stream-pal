@@ -45,6 +45,9 @@ export default function VideoPlayer({
     // Just making sure all events are attached. The wait time is small enough to go unnoticed
     setTimeout(() => {
       autoPlay();
+      if (videoElement) {
+        videoElement.focus();
+      }
     }, 350);
 
     return () => {
