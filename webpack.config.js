@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 
@@ -12,8 +13,7 @@ module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
 
   return {
-    // @todo fix a target that works best on WebOS
-    // target: ["browserslist"],
+    target: ["browserslist"],
     entry: "./src/index.tsx",
     output: {
       filename: "bundle.js",
@@ -135,6 +135,10 @@ module.exports = (env, argv) => {
       }),
       new Dotenv(),
     ],
+    optimization: {
+      minimize: isProduction,
+      minimizer: [`...`, new CssMinimizerPlugin()],
+    },
     devServer: {
       static: {
         directory: path.resolve(__dirname, buildPath),
