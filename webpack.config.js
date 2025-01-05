@@ -45,6 +45,25 @@ module.exports = (env, argv) => {
             },
           },
         },
+        { // cookie library is transpiling itself here, weird
+          test: /\.m?js$/,
+          exclude: /node_modules\/(?!cookie)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    targets: {
+                      esmodules: false,
+                    },
+                  },
+                ],
+              ],
+            },
+          },
+        },
         {
           test: cssModuleRegex,
           use: [
