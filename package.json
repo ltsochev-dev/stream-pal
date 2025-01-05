@@ -3,7 +3,7 @@
   "name": "stream-pal",
   "version": "1.0.0",
   "description": "StreamPal LG WebOS Experiment App",
-  "main": "StreamPal/index.js",
+  "main": "dist/bundle.js",
   "scripts": {
     "dev": "webpack serve --mode development",
     "build": "webpack --mode production",
@@ -31,6 +31,7 @@
     "@types/react-dom": "^19.0.2",
     "autoprefixer": "^10.4.20",
     "babel-loader": "^9.2.1",
+    "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.0",
@@ -50,7 +51,7 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
+      "> 0.25%",
       "not dead",
       "not op_mini all"
     ],
