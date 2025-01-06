@@ -7,7 +7,6 @@ import AuthLayout from "@/app/components/Layouts/AuthLayout";
 import AuthorizedLayout from "@/app/components/Layouts/AuthorizedLayout";
 import SimplePreloader from "@/app/components/SimplePreloader";
 import FatalError from "@/app/components/FatalError";
-import EnableSpatialNavigation from "@/app/components/EnableSpatialNavigation";
 import ScrollToTop from "./ScrollToTop";
 
 const LandingPage = lazy(() => import("@/app/pages/LandingPage"));
@@ -46,7 +45,6 @@ export default function App() {
                 <Route path="*" element={<PageNotFound />} />
               </Routes>
             </Suspense>
-            <EnableSpatialNavigation />
           </Router>
         </Providers>
       </Suspense>

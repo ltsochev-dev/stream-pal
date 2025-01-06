@@ -14,6 +14,8 @@
   "author": "Lachezar Tsochev",
   "license": "MIT",
   "dependencies": {
+    "@noriginmedia/norigin-spatial-navigation": "^2.2.2",
+    "clsx": "^2.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-error-boundary": "^5.0.0",
