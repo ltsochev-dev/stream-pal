@@ -1,18 +1,25 @@
 import { SyntheticEvent, type FC } from "react";
 import { Outlet, useNavigate } from "react-router";
 import { useAuth } from "@/app/context/AuthContext";
-import AvatarCircle from "@/app/components/AvatarCircle";
+import { useNavigator } from "@/app/context/NavigatorContext";
 import HomeIcon from "@/app/icons/home.svg?react";
 import SearchIcon from "@/app/icons/search.svg?react";
 import PlusIcon from "@/app/icons/plus.svg?react";
 import UserIcon from "@/app/icons/user.svg?react";
 import SettingsIcon from "@/app/icons/settings.svg?react";
 import LogoutIcon from "@/app/icons/log-out.svg?react";
-import IconLink from "../IconLink";
+import { NavItem } from "@/app/components/NavBar/types";
+import DesktopNavbar from "@/app/components/NavBar/DesktopNavbar";
+import MobileNavbar from "@/app/components/NavBar/MobileNavbar";
+import clsx from "clsx";
 
 const AuthorizedLayout: FC = () => {
   const { user, logout } = useAuth();
+  const { isTV, isMobile } = useNavigator();
   const navigate = useNavigate();
+
+  const isDesktop = isTV || isMobile;
+  // const isDesktop = !isTV && !isMobile;
 
   const handleLogout = (e: SyntheticEvent): void => {
     e.preventDefault();
@@ -22,70 +29,41 @@ const AuthorizedLayout: FC = () => {
     navigate("/login");
   };
 
+  const NavItems: NavItem[] = [
+    { to: "/home", label: "Home", icon: HomeIcon },
+    {
+      to: "/search",
+      label: "Search",
+      icon: SearchIcon,
+    },
+    {
+      to: "/watchlist",
+      label: "Watchlist",
+      icon: PlusIcon,
+    },
+    {
+      to: "/profile",
+      label: "Profile",
+      icon: UserIcon,
+    },
+    {
+      to: "/settings",
+      label: "Settings",
+      icon: SettingsIcon,
+    },
+    {
+      to: "#",
+      label: "Logout",
+      icon: LogoutIcon,
+      onClick: handleLogout,
+    },
+  ];
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-900">
-      <header className="bg-gray-800 text-white p-4 shadow-md">
-        <div className="px-8 mx-auto flex justify-between items-center gap-12 min-h-10">
-          <h1 className="text-2xl font-bold select-none">StreamPal</h1>
-          <nav>
-            <ul className="flex space-x-4">
-              <li>
-                <IconLink to="/home" icon={<HomeIcon width={15} height={15} />}>
-                  Home
-                </IconLink>
-              </li>
-              <li>
-                <IconLink
-                  to="/search"
-                  icon={<SearchIcon width={15} height={15} />}
-                >
-                  Search
-                </IconLink>
-              </li>
-              <li>
-                <IconLink
-                  to="/watchlist"
-                  icon={<PlusIcon width={15} height={15} />}
-                >
-                  Watchlist
-                </IconLink>
-              </li>
-              <li>
-                <IconLink to="/home" icon={<UserIcon width={15} height={15} />}>
-                  Profile
-                </IconLink>
-              </li>
-              <li>
-                <IconLink
-                  to="/home"
-                  icon={<SettingsIcon width={15} height={15} />}
-                >
-                  Settings
-                </IconLink>
-              </li>
-              <li>
-                <IconLink
-                  to="#"
-                  icon={<LogoutIcon width={15} height={15} />}
-                  onClick={handleLogout}
-                >
-                  Logout
-                </IconLink>
-              </li>
-            </ul>
-          </nav>
-          {user && (
-            <div className="ml-auto flex gap-2 items-center">
-              <span>{user?.name}</span>
-              <AvatarCircle
-                src={user?.avatarUrl}
-                alt={`${user.name} Profile Image`}
-              />
-            </div>
-          )}
-        </div>
-      </header>
-      <main className="app-container">
+      {isDesktop && <DesktopNavbar items={NavItems} user={user} />}
+      {!isDesktop && <MobileNavbar items={NavItems} focusKey="mobile-navbar" />}
+      <main className={clsx("app-container", !isDesktop && "pl-20")}>
         <Outlet />
       </main>
       <footer className="bg-gray-800 text-white p-4 mt-4">

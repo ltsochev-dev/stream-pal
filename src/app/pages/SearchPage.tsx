@@ -38,7 +38,7 @@ const SearchPage: React.FC = () => {
   }, [debouncedQuery, handleSearch]);
 
   return (
-    <div className="container mx-auto bg-gray-900 p-4 h-fit">
+    <div className="container mx-auto bg-gray-900 p-4 h-screen">
       <div className="grid grid-cols-[32rem_1fr] gap-6">
         <VirtualKeyboard
           onInput={handleVirtualInput}
