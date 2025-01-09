@@ -5,7 +5,6 @@ import { twMerge } from "tailwind-merge";
 
 export interface VirtualKeyboardProps {
   alphabet?: string[][];
-  // eslint-disable-next-line no-unused-vars
   onInput?: (key: string) => void;
   onClear?: () => void;
   onSubmit?: () => void;

@@ -1,18 +1,14 @@
 import {
+  type FC,
+  type RefObject,
+  type ReactNode,
   createContext,
-  Dispatch,
-  FC,
-  ReactNode,
-  RefObject,
-  SetStateAction,
   useContext,
-  useEffect,
   useRef,
   useState,
 } from "react";
-import { getNearestObject } from "./utils";
 
-const LRUP = {
+export const LRUP = {
   left: ["ArrowLeft"],
   right: ["ArrowRight"],
   up: ["ArrowUp"],
@@ -21,111 +17,85 @@ const LRUP = {
 
 export type Direction = keyof typeof LRUP;
 
-export interface NavNode {
+export interface FocusableNode {
   focusKey: string;
-  bounds: BoundingRect | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ref: RefObject<any>;
+  rect: DOMRect;
+  parentKey?: string;
+  children: FocusableNode[];
 }
 
-export type BoundingRect = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-};
+export type NavMap = Map<string, FocusableNode>;
 
-export type NavMap = Map<string, NavNode>;
-
-interface NavContextType {
-  registerNode: (focusKey: string, ref: RefObject<HTMLElement>) => void;
-  unregisterNode: (focusKey: string) => void;
-  updateNodeDimensions: (focusKey: string) => void;
-  nodes: NavMap;
-  focusPath: string;
-  setFocusPath: Dispatch<SetStateAction<string>>;
+interface NavigationContextType {
+  register: (node: FocusableNode) => void;
+  unregister: (id: string) => void;
+  focusNode: (id: string) => void;
+  navigationTree: FocusableNode[];
+  currentFocus?: string;
+  setFocused: (focusKey: string) => void;
 }
 
-const NavContext = createContext<NavContextType | null>(null);
+const NavigationContext = createContext<NavigationContextType | null>(null);
 
-export const NavProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const nodes = useRef(new Map<string, NavNode>());
-  const [focusPath, setFocusPath] = useState("sn:root");
-
-  const registerNode = (focusKey: string, ref: RefObject<HTMLElement>) => {
-    if (!nodes.current.has(focusKey)) {
-      const element = ref.current;
-      const { width, height, x, y } = element?.getBoundingClientRect() ?? {};
-
-      nodes.current.set(focusKey, {
-        focusKey,
-        bounds: element ? { width, height, x, y } : null,
-        ref,
-      });
-    }
-  };
-
-  const unregisterNode = (focusKey: string) => {
-    nodes.current.delete(focusKey);
-  };
-
-  const updateNodeDimensions = (focusKey: string) => {
-    const node = nodes.current.get(focusKey);
-    if (node && node.ref.current) {
-      const element = node.ref.current;
-      const { width, height, x, y } = element?.getBoundingClientRect() ?? {};
-
-      nodes.current.set(focusKey, { ...node, bounds: { width, height, x, y } });
-    }
-  };
-
-  const handleKeyDown = (e: KeyboardEvent) => {
-    const direction = Object.entries(LRUP)
-      .find(([dir, codes]) => (codes.includes(e.code) ? dir : false))
-      ?.at(0);
-
-    if (!direction) return;
-
-    const currentNode = nodes.current.get(focusPath);
-
-    if (!currentNode) return;
-
-    switch (direction) {
-      case "left":
-        const newNode = getNearestObject(currentNode, nodes.current, "left");
-        console.log({ newNode });
-        break;
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [nodes]);
-
-  return (
-    <NavContext.Provider
-      value={{
-        registerNode,
-        unregisterNode,
-        updateNodeDimensions,
-        focusPath,
-        setFocusPath,
-        nodes: nodes.current,
-      }}
-    >
-      {children}
-    </NavContext.Provider>
-  );
-};
-
-export const useNavContext = () => {
-  const context = useContext(NavContext);
+export const useFocusable = () => {
+  const context = useContext(NavigationContext);
   if (!context) {
-    throw new Error("useNavContext must be used within a NavProvider");
+    throw new Error("useFocusable must be used within NavigationProvider");
   }
 
   return context;
 };
 
-export default NavProvider;
+const NavigationProvider: FC<{ children?: ReactNode }> = ({ children }) => {
+  const [navigationTree, setNavigationTree] = useState<FocusableNode[]>([]);
+  const [currentFocusedId, setCurrentFocusedId] = useState<string>("");
+  const nodeMap = useRef(new Map<string, FocusableNode>());
+
+  const register = (node: FocusableNode) => {
+    if (!nodeMap.current.has(node.focusKey)) {
+      nodeMap.current.set(node.focusKey, node);
+      updateTree();
+    }
+  };
+
+  const unregister = (focusKey: string) => {
+    if (nodeMap.current.has(focusKey)) {
+      nodeMap.current.delete(focusKey);
+      updateTree();
+    }
+  };
+
+  const updateTree = () => {
+    const nodes = Array.from(nodeMap.current.values());
+
+    const buildTree = (parentId?: string): FocusableNode[] => {
+      return nodes
+        .filter((node) => node.focusKey === parentId)
+        .map((node) => ({
+          ...node,
+          children: buildTree(node.focusKey),
+        }));
+    };
+
+    // Build tree recursively
+    setNavigationTree(buildTree());
+  };
+
+  return (
+    <NavigationContext.prototype
+      value={{
+        register,
+        unregister,
+        navigationTree,
+        currentFocusedId,
+        setFocused: setCurrentFocusedId,
+      }}
+    >
+      {children}
+    </NavigationContext.prototype>
+  );
+};
+
+export default NavigationProvider;

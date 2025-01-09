@@ -7,7 +7,6 @@ interface SliderProps {
   value: number;
   step?: number;
   className?: string;
-  // eslint-disable-next-line no-unused-vars
   onChange: (value: number) => void;
 }
 

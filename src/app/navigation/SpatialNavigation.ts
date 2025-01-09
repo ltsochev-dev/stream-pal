@@ -6,7 +6,7 @@ interface QuadTreeNode<T> {
   children: QuadTreeNode<T>[];
 }
 
-class Quadtree<T> {
+export class Quadtree<T> {
   root: QuadTreeNode<T>;
 
   constructor(bounds: BoundingRect) {
@@ -25,3 +25,11 @@ class SpatialNavigation {
 const MySpatialNavigation = new SpatialNavigation();
 
 export const { init } = MySpatialNavigation;
+
+export interface SpatialNode<T> {
+  value: T;
+  left?: SpatialNode<T>;
+  right?: SpatialNode<T>;
+  up?: SpatialNode<T>;
+  down?: SpatialNode<T>;
+}

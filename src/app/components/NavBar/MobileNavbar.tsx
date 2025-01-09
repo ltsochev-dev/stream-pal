@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
-import {
-  useFocusable,
-  FocusContext,
-} from "@noriginmedia/norigin-spatial-navigation";
+import { FocusContext } from "@noriginmedia/norigin-spatial-navigation";
 import IconLink from "@/app/components/IconLink";
 import type { NavBarPropsBase } from "./types";
 import Backdrop from "./Backdrop";
@@ -19,7 +16,7 @@ export default function MobileNavbar({
   focusKey = "mobile-navbar",
 }: MobileNavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const { ref, focused } = useNavigationNode(focusKey);
+  const { ref, focused } = useNavigationNode({ focusKey });
 
   const isReallyOpen = focused || isOpen;
 

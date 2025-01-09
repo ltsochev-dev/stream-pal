@@ -1,11 +1,6 @@
-import type {
-  BoundingRect,
-  Direction,
-  NavMap,
-  NavNode,
-} from "./NavigationContext";
+import type { Direction, NavMap, FocusableNode } from "./NavigationContext";
 
-export const getCenter = (rect: BoundingRect) => {
+export const getCenter = (rect: FocusableNode["rect"]) => {
   const centerX = rect.x + rect.width / 2;
   const centerY = rect.y + rect.height / 2;
 
@@ -13,18 +8,18 @@ export const getCenter = (rect: BoundingRect) => {
 };
 
 export const getNearestObject = (
-  current: NavNode,
+  current: FocusableNode,
   nodes: NavMap,
   direction: Direction
 ) => {
   const { centerX: currentX, centerY: currentY } = getCenter(
-    current.bounds ?? { x: 0, y: 0, width: 0, height: 0 }
+    current.rect ?? { x: 0, y: 0, width: 0, height: 0 }
   );
 
   const filteredNodes = Array.from(nodes.entries())
     .map(([_, node]) => ({
       ...node,
-      ...(node.bounds && getCenter(node.bounds)),
+      ...(node.rect && getCenter(node.rect)),
     }))
     .filter(({ centerX = 0, centerY = 0 }) => {
       switch (direction) {

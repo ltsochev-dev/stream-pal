@@ -1,49 +1,48 @@
-import { RefObject, useEffect, useRef } from "react";
-import { useNavContext } from "@/app/navigation/NavigationContext";
+import { useEffect, useRef } from "react";
+import { useFocusable } from "@/app/navigation/NavigationContext";
 
 let nodeCounter = 1;
 
-export const useNavigationNode = (focusKey?: string) => {
+export interface UseNavigationNodeProps {
+  focusKey?: string;
+  parentFocusKey?: string;
+}
+
+export const useNavigationNode = ({
+  focusKey,
+  parentFocusKey,
+}: UseNavigationNodeProps) => {
   const resolvedFocusKey = focusKey ?? `sn:item-${++nodeCounter}`;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ref = useRef<any>(null);
-  const {
-    registerNode,
-    unregisterNode,
-    updateNodeDimensions,
-    focusPath,
-    setFocusPath,
-    nodes,
-  } = useNavContext();
+  const { register, unregister, navigationTree, setFocused, currentFocus } =
+    useFocusable();
 
   useEffect(() => {
-    const observer = new ResizeObserver(() => {
-      updateNodeDimensions(resolvedFocusKey);
+    if (!ref.current) return;
+
+    register({
+      focusKey: resolvedFocusKey,
+      ref,
+      rect: (ref.current as HTMLElement).getBoundingClientRect(),
+      children: [],
+      parentKey: parentFocusKey,
     });
 
-    registerNode(resolvedFocusKey, ref as RefObject<HTMLElement>);
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-
-      unregisterNode(resolvedFocusKey);
+      unregister(resolvedFocusKey);
     };
-  }, [resolvedFocusKey, registerNode, unregisterNode, updateNodeDimensions]);
+  }, [resolvedFocusKey, parentFocusKey, register, unregister]);
 
   const setPath = (focusPath: string) => {
-    setFocusPath(focusPath);
+    setFocused(focusPath);
   };
 
   const focusSelf = () => {
     setPath(resolvedFocusKey);
   };
 
-  console.log({ nodes });
+  console.log({ navigationTree });
 
-  return { ref, focusSelf, focused: focusKey === focusPath };
+  return { ref, focusSelf, focused: focusKey === currentFocus };
 };

@@ -17,7 +17,7 @@ export default function IconLink({
   focusKey,
   ...props
 }: IconLinkProps) {
-  const { ref, focused } = useNavigationNode(focusKey);
+  const { ref, focused } = useNavigationNode({ focusKey });
 
   return (
     <NavLink
