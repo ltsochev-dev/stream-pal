@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { SyntheticEvent, type FC } from "react";
 import { Outlet, useNavigate } from "react-router";
 import { useAuth } from "@/app/context/AuthContext";
@@ -11,7 +12,6 @@ import LogoutIcon from "@/app/icons/log-out.svg?react";
 import { NavItem } from "@/app/components/NavBar/types";
 import DesktopNavbar from "@/app/components/NavBar/DesktopNavbar";
 import MobileNavbar from "@/app/components/NavBar/MobileNavbar";
-import clsx from "clsx";
 
 const AuthorizedLayout: FC = () => {
   const { user, logout } = useAuth();
@@ -62,7 +62,9 @@ const AuthorizedLayout: FC = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gray-900">
       {isDesktop && <DesktopNavbar items={NavItems} user={user} />}
-      {!isDesktop && <MobileNavbar items={NavItems} focusKey="mobile-navbar" />}
+      {!isDesktop && (
+        <MobileNavbar items={NavItems} focusKey="app-root/mobile-navbar" />
+      )}
       <main className={clsx("app-container", !isDesktop && "pl-20")}>
         <Outlet />
       </main>

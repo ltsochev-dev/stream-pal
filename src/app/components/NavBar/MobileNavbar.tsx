@@ -8,6 +8,7 @@ import {
 import IconLink from "@/app/components/IconLink";
 import type { NavBarPropsBase } from "./types";
 import Backdrop from "./Backdrop";
+import { useNavigationNode } from "@/app/navigation/hooks/useNavigationNode";
 
 export interface MobileNavbarProps extends NavBarPropsBase {
   focusKey?: string;
@@ -18,13 +19,9 @@ export default function MobileNavbar({
   focusKey = "mobile-navbar",
 }: MobileNavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const { ref, hasFocusedChild, focused } = useFocusable({
-    focusable: true,
-    trackChildren: true,
-    focusKey,
-  });
+  const { ref, focused } = useNavigationNode(focusKey);
 
-  const isReallyOpen = hasFocusedChild || focused || isOpen;
+  const isReallyOpen = focused || isOpen;
 
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
@@ -35,7 +32,7 @@ export default function MobileNavbar({
           className={clsx(
             "bg-gray-800 text-white transition-all duration-300 ease-in-out h-full overflow-hidden px-4 py-8 fixed top-0 bottom-0 z-20",
             isReallyOpen ? "w-64" : "w-20",
-            (focused || hasFocusedChild) && "shadow-md border-2 border-white"
+            focused && "shadow-md border-2 border-white"
           )}
           ref={ref}
         >
@@ -62,7 +59,7 @@ export default function MobileNavbar({
                     onClick={item.onClick}
                     className="block select-none"
                     title={item.label}
-                    focusKey={`mobile-navbar/button/${index}`}
+                    focusKey={`app-root/mobile-navbar/button/${index}`}
                   >
                     {isReallyOpen && item.label}
                   </IconLink>

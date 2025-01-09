@@ -1,8 +1,8 @@
 import "./globals.css";
-import { init as initSpatialNavigation } from "@noriginmedia/norigin-spatial-navigation";
 import { createRoot } from "react-dom/client";
 import App from "@/app/App";
 import { StrictMode } from "react";
+import { init as initSpatialNavigation } from "@noriginmedia/norigin-spatial-navigation";
 
 document.addEventListener("DOMContentLoaded", () => {
   document.body.innerHTML = '<div id="app"></div>';
@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (container) {
     initSpatialNavigation({
       distanceCalculationMethod: "center",
+      // debug: true,
+      // visualDebug: true,
     });
 
     const root = createRoot(container);

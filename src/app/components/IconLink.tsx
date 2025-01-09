@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
 import { NavLink, NavLinkProps } from "react-router";
 import { twMerge } from "tailwind-merge";
-import { useFocusable } from "@noriginmedia/norigin-spatial-navigation";
-import IconText from "./IconText";
 import clsx from "clsx";
+import { useNavigationNode } from "@/app/navigation/hooks/useNavigationNode";
+import IconText from "./IconText";
 
 export interface IconLinkProps extends NavLinkProps {
   icon?: ReactNode;
@@ -17,7 +17,7 @@ export default function IconLink({
   focusKey,
   ...props
 }: IconLinkProps) {
-  const { ref, focused } = useFocusable({ focusKey });
+  const { ref, focused } = useNavigationNode(focusKey);
 
   return (
     <NavLink
