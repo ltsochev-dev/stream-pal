@@ -7,7 +7,7 @@ export interface SliderProps {
   duration?: number;
 }
 
-export default function Slider({ movies, duration = 3000 }: SliderProps) {
+export default function Slider({ movies, duration = 1000 }: SliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const images = useMemo(
     () =>
@@ -20,9 +20,10 @@ export default function Slider({ movies, duration = 3000 }: SliderProps) {
   return (
     <div className="h-[max(560px,65vh)] overflow-hidden relative">
       <div
-        className="flex h-full transition-transform duration-1000"
+        className="flex h-full transition-transform"
         style={{
           transform: `translateX(-${currentIndex * 100}%)`,
+          animationDuration: `${duration}ms`,
         }}
       >
         {images.map((image, index) => (

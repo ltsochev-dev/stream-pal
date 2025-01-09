@@ -1,5 +1,3 @@
-import { FC } from "react";
-
 export interface AvatarCircleProps {
   src: string;
   alt: string;

@@ -19,6 +19,7 @@ const SearchPage: React.FC = () => {
 
   const handleSearch = () => {
     console.log("todo search", debouncedQuery);
+    setResults([]);
   };
 
   const handleVirtualInput = (key: string) => {

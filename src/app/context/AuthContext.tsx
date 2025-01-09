@@ -11,6 +11,7 @@ interface AuthContextType {
   user: { uid: string; name: string; avatarUrl: string } | null;
   isAuthenticated: boolean;
   loading: boolean;
+  // eslint-disable-next-line no-unused-vars
   login: (token: string, refreshToken: string) => void;
   logout: () => void;
 }

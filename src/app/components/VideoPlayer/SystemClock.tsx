@@ -22,7 +22,7 @@ export default function SystemClock() {
           setUtcTime(response.utc);
         },
         onFailure: function (error: unknown) {
-          console.error("Failed to get system time information");
+          console.error("Failed to get system time information", error);
           setLocalTime(new Date().toUTCString());
           return;
         },

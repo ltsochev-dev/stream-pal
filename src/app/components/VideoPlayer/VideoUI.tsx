@@ -41,7 +41,7 @@ const VideoUI: FC<VideoUIProps> = ({
   const [duration, setDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-  const [isPending, startTransition] = useTransition();
+  const [_, startTransition] = useTransition();
 
   useEffect(() => {
     if (!videoRef?.current) return;
@@ -175,6 +175,7 @@ const VideoUI: FC<VideoUIProps> = ({
 
     const newTime = clamp(seekTo, 0, videoRef.current.duration);
 
+    // eslint-disable-next-line react-compiler/react-compiler
     videoRef.current.currentTime = newTime;
 
     setCurrentTime(newTime);

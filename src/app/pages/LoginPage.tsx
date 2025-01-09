@@ -5,7 +5,7 @@ import { useAuth } from "@/app/context/AuthContext";
 export default function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [formState, submitAction, isPending] = useActionState(
+  const [_, submitAction, isPending] = useActionState(
     (_: unknown, formData: FormData) => {
       const userData = JSON.stringify({
         uid: 1337,

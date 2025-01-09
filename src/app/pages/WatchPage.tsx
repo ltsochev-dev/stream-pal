@@ -1,7 +1,7 @@
 import { type FC } from "react";
 import { useNavigate, useParams } from "react-router";
-import useSWR from "swr";
-import { movieFetcher } from "@/app/fetchers/movies";
+// import useSWR from "swr";
+// import { movieFetcher } from "@/app/fetchers/movies";
 import VideoPlayer from "@/app/components/VideoPlayer/VideoPlayer";
 import ChevronLeftIcon from "@/app/icons/chevron-left.svg?react";
 import { ErrorBoundary } from "react-error-boundary";

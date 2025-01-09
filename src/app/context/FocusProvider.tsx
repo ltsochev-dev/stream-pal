@@ -28,6 +28,7 @@ const focusReducer = (state: FocusState, action: FocusAction): FocusState => {
 
 interface FocusContextType {
   focusPath: FocusState["focusPath"];
+  // eslint-disable-next-line no-unused-vars
   setFocusPath: (path: string) => void;
 }
 

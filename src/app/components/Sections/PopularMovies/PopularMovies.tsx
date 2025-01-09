@@ -1,4 +1,4 @@
-import { type FC, useMemo } from "react";
+import { type FC } from "react";
 import Slider from "./Slider";
 import type { IMovie } from "./types";
 

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 declare global {
   interface Window {
     webOS: {

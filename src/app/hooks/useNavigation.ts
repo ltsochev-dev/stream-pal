@@ -5,6 +5,7 @@ type Direction = "up" | "down" | "left" | "right";
 interface FocusableNode {
   path: string;
   direction: Direction;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any; // Allows for additional properties specific to the node
 }
 

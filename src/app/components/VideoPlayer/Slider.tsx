@@ -7,6 +7,7 @@ interface SliderProps {
   value: number;
   step?: number;
   className?: string;
+  // eslint-disable-next-line no-unused-vars
   onChange: (value: number) => void;
 }
 
@@ -31,5 +32,7 @@ const Slider = forwardRef<HTMLInputElement, SliderProps>(
     </div>
   )
 );
+
+Slider.displayName = "Slider";
 
 export default Slider;
