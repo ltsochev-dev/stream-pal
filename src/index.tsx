@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (container) {
     initSpatialNavigation({
+      // debug: true,
       distanceCalculationMethod: "center",
     });
 

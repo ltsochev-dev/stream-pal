@@ -1,8 +1,11 @@
-import { type FC } from "react";
-import { NavLink, useParams } from "react-router";
+import { useFocusable } from "@noriginmedia/norigin-spatial-navigation";
+import { useEffect, type FC } from "react";
+import { useParams } from "react-router";
+import WatchNowButton from "@/app/components/WatchNowButton";
 
 const DetailsPage: FC = () => {
   const { id } = useParams();
+  const { ref, focusSelf } = useFocusable({ focusKey: "DetailsPage" });
 
   const movie = {
     title: "Inception",
@@ -14,8 +17,12 @@ const DetailsPage: FC = () => {
       "https://image.tmdb.org/t/p/w500/1sQA7lfcF9yUyoLYC0e6Zo3jmxE.jpg",
   };
 
+  useEffect(() => {
+    focusSelf();
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-4">
+    <div className="min-h-screen bg-gray-900 text-white p-4" ref={ref}>
       <div className="max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-lg overflow-hidden">
         <div className="md:flex">
           <div className="md:flex-shrink-0">
@@ -35,12 +42,9 @@ const DetailsPage: FC = () => {
               <span className="text-yellow-400">Rating: {movie.rating}</span>
             </div>
             <div className="mt-4">
-              <NavLink
-                to={`/movie/watch/${id}`}
-                className="px-5 py-2 text-lg bg-blue-500 text-white rounded"
-              >
+              <WatchNowButton to={`/movie/watch/${id}`}>
                 Watch Now
-              </NavLink>
+              </WatchNowButton>
             </div>
           </div>
         </div>
